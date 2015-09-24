@@ -1,10 +1,8 @@
-/*global IframeHelper, Loader, $*/
+/* global IframeHelper $*/
 $(function () {
     var $ = window.$;
     var inno = new IframeHelper();
-    var loader = new Loader();
-    loader.show();
-    var backendUrl;
+    inno.showLoader();
     var $chart = $('#chart');
 
     // related to "frontend/widgets/interests/settings/settings.schema.json"
@@ -16,7 +14,7 @@ $(function () {
         "Technology"
     ];
 
-    $.jqplot.preInitHooks.push(function (target, data, options) {
+    $.jqplot.preInitHooks.push(function (/*target, data, options*/) {
         this._defaultGridPadding = {top:5, right:0, bottom:5, left:0};
     });
 
@@ -25,7 +23,7 @@ $(function () {
      */
     inno.onReady(function () {
         updateChart(function () {
-            loader.hide();
+            inno.hideLoader();
         });
     });
 
@@ -33,9 +31,9 @@ $(function () {
      * Refresh button click listener
      */
     $('#refresh').click(function () {
-        loader.show();
+        inno.showLoader();
         updateChart(function () {
-            loader.hide();
+            inno.hideLoader();
         });
     });
 
@@ -64,7 +62,7 @@ $(function () {
     function getInterestsData (callback) {
         inno.getProperties(function (status, data) {
             var error = null,
-                interests = null, interest, interestsToShow;
+                interests = null;
             if (!status) {
                 error = new Error('Can not get interests data');
             } else {
@@ -88,7 +86,7 @@ $(function () {
      * @param {Object} data
      * @param {Object} settings
      */
-    function renderChart(data, settings) {
+    function renderChart (data, settings) {
         settings = settings || {};
         var plotData = prepareJQPlotData(data);
         if (!plotData.length) {
@@ -202,7 +200,7 @@ $(function () {
             case 'bar':
                 config = {
                     axesDefaults: {
-                        tickRenderer: $.jqplot.CanvasAxisTickRenderer ,
+                        tickRenderer: $.jqplot.CanvasAxisTickRenderer,
                         tickOptions: {
                             angle: -15,
                             fontSize: '10pt'

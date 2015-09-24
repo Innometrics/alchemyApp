@@ -36,12 +36,11 @@
             theme: 'bootstrap3'
         });
         
-        // Init loader
-        var loader = new Loader();
-        loader.show();
 
         // Init IframeHelper
         var inno = new IframeHelper();
+        
+        inno.showLoader();
         inno.onReady(function () {
             inno.getProperties(function (status, data) {
                 if (status) {
@@ -49,7 +48,7 @@
                 } else {
                     alert('Error: unable to get Settings from Profile Cloud');
                 }
-                loader.hide();
+                inno.hideLoader();
             });
         });
 
@@ -64,9 +63,9 @@
                 });
                 alert(errors.join('\n'));
             } else {
-                loader.show();
+                inno.showLoader();
                 inno.setProperties(editor.getValue(), function (status) {
-                    loader.hide();
+                    inno.hideLoader();
                     if (status) {
                         alert('Settings were saved.');
                     }

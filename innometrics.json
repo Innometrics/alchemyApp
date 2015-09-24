@@ -10,8 +10,8 @@
         "interests": {
             "title": "Interests",
             "options": {
-                "type": "page",
-                "value": "settings/settings.html",
+                "type": "bundled",
+                "content": "settings/settings.html",
                 "defaultSettings": {
                     "chartType": "bar"
                 }
