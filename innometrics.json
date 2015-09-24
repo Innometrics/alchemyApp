@@ -14,6 +14,9 @@
                 "content": "settings/settings.html",
                 "defaultSettings": {
                     "chartType": "bar"
+                },
+                "size": {
+                    "height": 560
                 }
             }
         }
