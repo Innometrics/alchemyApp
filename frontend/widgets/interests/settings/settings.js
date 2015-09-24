@@ -1,4 +1,4 @@
-/*global JSONEditor, IframeHelper, Loader*/
+/*global JSONEditor, IframeHelper */
 (function () {
     var $ = window.$;
 
@@ -37,12 +37,9 @@
             theme: 'bootstrap3'
         });
 
-        // Init loader
-        var loader = new Loader();
-        loader.show();
-
         // Init IframeHelper
         var inno = new IframeHelper();
+        inno.showLoader();
         inno.onReady(function () {
             inno.getWidgetSettings(function (status, data) {
                 if (status) {
@@ -51,7 +48,7 @@
                     alert('Error: unable to get Widget Settings');
                 }
                 inno.sendIsReady();
-                loader.hide();
+                inno.hideLoader();
             });
         });
 
@@ -66,9 +63,9 @@
                 });
                 alert(errors.join('\n'));
             } else {
-                loader.show();
+                inno.showLoader();
                 inno.setWidgetSettings(editor.getValue(), function (status) {
-                    loader.hide();
+                    inno.hideLoader();
                     if (status) {
                         alert('Settings were saved');
                     }
