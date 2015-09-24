@@ -45,7 +45,7 @@
                 if (status) {
                     editor.setValue(data);
                 } else {
-                    alert('Error: unable to get Widget Settings');
+                    console.log('Error: unable to get Widget Settings');
                 }
                 inno.sendIsReady();
                 inno.hideLoader();
@@ -61,13 +61,13 @@
                         title = field.schema.title;
                     return title + ': ' + error.message;
                 });
-                alert(errors.join('\n'));
+                console.log(errors.join('\n'));
             } else {
                 inno.showLoader();
                 inno.setWidgetSettings(editor.getValue(), function (status) {
                     inno.hideLoader();
                     if (status) {
-                        alert('Settings were saved');
+                        console.log('Settings were saved');
                     }
                 });
             }
