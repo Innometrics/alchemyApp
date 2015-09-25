@@ -63,7 +63,7 @@
                 });
                 console.log(errors.join('\n'));
             } else {
-                inno.showLoader();
+                inno.showLoader('Saving...');
                 inno.setWidgetSettings(editor.getValue(), function (status) {
                     inno.hideLoader();
                     if (status) {

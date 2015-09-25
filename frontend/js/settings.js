@@ -63,7 +63,7 @@
                 });
                 console.log(errors.join('\n'));
             } else {
-                inno.showLoader();
+                inno.showLoader('Saving...');
                 inno.setProperties(editor.getValue(), function (status) {
                     inno.hideLoader();
                     if (status) {
