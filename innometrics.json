@@ -9,7 +9,7 @@
     "widgets": {
         "interests": {
             "title": "Interests",
-            "options": {
+            "settings": {
                 "type": "bundled",
                 "content": "settings/settings.html",
                 "defaultSettings": {
