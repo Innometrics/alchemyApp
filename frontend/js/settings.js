@@ -1,6 +1,9 @@
 /* global makeSettingsEditor */
 
 (function () {
+
+    Loader.show();
+
     makeSettingsEditor({
         form: $('#form-setting')[0],
         submit: $('#submit-setting')
@@ -15,13 +18,13 @@
                 } else {
                     console.log('Error: unable to get Settings from Profile Cloud');
                 }
-                helper.hideLoader();
+                Loader.hide();
             });
         },
         callbackSetSettings: function (helper, form) {
-            helper.showLoader('Saving...');
+            Loader.show();
             helper.setProperties(form.getValue(), function (status) {
-                helper.hideLoader();
+                Loader.hide();
                 if (status) {
                     console.log('Settings were saved.');
                 }
