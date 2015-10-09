@@ -2,7 +2,7 @@
 $(function () {
     var $ = window.$;
     var inno = new IframeHelper();
-    inno.showLoader();
+    Loader.show();
     var $chart = $('#chart');
 
     // related to "frontend/widgets/interests/settings/settings.schema.json"
@@ -23,7 +23,7 @@ $(function () {
      */
     inno.onReady(function () {
         updateChart(function () {
-            inno.hideLoader();
+            Loader.hide();
         });
     });
 
@@ -31,9 +31,9 @@ $(function () {
      * Refresh button click listener
      */
     $('#refresh').click(function () {
-        inno.showLoader();
+        Loader.show();
         updateChart(function () {
-            inno.hideLoader();
+            Loader.hide();
         });
     });
 

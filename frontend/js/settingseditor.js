@@ -39,7 +39,7 @@ function makeSettingsEditor(handlers, options, callbacks) {
         // Init IframeHelper
         var inno = new IframeHelper();
 
-        inno.showLoader();
+        Loader.show();
         inno.onReady(function () {
             callbacks.callbackGetSettings(inno, editor);
         });
