@@ -1,4 +1,4 @@
-function makeSettingsEditor(handlers, options, callbacks) {
+function makeSettingsEditor (handlers, options, callbacks) {
     var $ = window.$;
 
     // Step 1. Define default path to file with schema
@@ -39,7 +39,6 @@ function makeSettingsEditor(handlers, options, callbacks) {
         // Init IframeHelper
         var inno = new IframeHelper();
 
-        Loader.show();
         inno.onReady(function () {
             callbacks.callbackGetSettings(inno, editor);
         });
