@@ -1,10 +1,6 @@
-/* global makeSettingsEditor, $ */
+/* global makeSettingsEditor, Loader */
 
 (function () {
-
-    var loader = new Loader();
-    loader.show();
-
     makeSettingsEditor({
         form: $('#form-setting')[0],
         submit: $('#submit-setting')
@@ -19,16 +15,16 @@
                 } else {
                     console.log('Error: unable to get Settings from Profile Cloud');
                 }
-                loader.hide();
+                Loader.hide();
             });
         },
         callbackSetSettings: function (helper, form) {
-            loader.show();
+            Loader.show('Saving...');
             helper.setProperties(form.getValue(), function (status) {
-                loader.hide();
                 if (status) {
                     console.log('Settings were saved.');
                 }
+                Loader.hide();
             });
         }
     });

@@ -4,8 +4,7 @@ $(function () {
     var inno = new IframeHelper();
     var $chart = $('#chart');
 
-    var loader = new Loader();
-    loader.show();
+    Loader.show();
 
     // related to "frontend/widgets/interests/settings/settings.schema.json"
     var defaultInterestToShow = [
@@ -25,7 +24,7 @@ $(function () {
      */
     inno.onReady(function () {
         updateChart(function () {
-            loader.hide();
+            Loader.hide();
         });
     });
 
@@ -33,9 +32,9 @@ $(function () {
      * Refresh button click listener
      */
     $('#refresh').click(function () {
-        loader.show();
+        Loader.show();
         updateChart(function () {
-            loader.hide();
+            Loader.hide();
         });
     });
 

@@ -1,10 +1,6 @@
 /* global makeSettingsEditor, $ */
 
 (function () {
-
-    var loader = new Loader();
-    loader.show();
-
     makeSettingsEditor({
         form: $('#form-setting')[0],
         submit: $('#submit-setting')
@@ -19,13 +15,13 @@
                 } else {
                     console.log('Error: unable to get Widget Settings from Profile Cloud');
                 }
-                loader.hide();
+                Loader.hide();
             });
         },
         callbackSetSettings: function (helper, form) {
-            loader.show();
+            Loader.show();
             helper.setWidgetSettings(form.getValue(), function (status) {
-                loader.hide();
+                Loader.hide();
                 helper.sendIsReady();
                 if (status) {
                     console.log('Widget Settings were saved.');
