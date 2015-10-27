@@ -93,6 +93,12 @@ app.post('/', function (req, res) {
                 return sendResponse(res, result.statusInfo);
             }
 
+            collectCommonData(result.entities, settings, function (err) {
+                if (err) {
+                    return sendResponse(res, err);
+                }
+            });
+
             var interests = getInterests(result.entities, settings);
             if (!interests.length) {
                 return sendResponse(res, null, 'No attributes to update');
@@ -163,6 +169,32 @@ var getInterests = function (entities, settings) {
     }).splice(0, settings.amount);
 };
 
+/**
+ * Aggregates data across all interests for statistics purposes
+ * @param  {Array}    entities Array returned by Alchemy API
+ * @param  {Object}   settings Application settings
+ * @param  {Function} callback
+ */
+var collectCommonData = function (entities, settings, callback) {
+
+    var types = settings.entityType,
+        result = settings.commonData || {};
+
+    entities.forEach(function (entity) {
+        var count = parseInt(entity.count, 10);
+        var type  = entity.type;
+        if (types.indexOf(type) > -1) {
+            result[type] = result.hasOwnProperty(type) ? result[type] + count : count;
+        }
+    });
+
+    settings.commonData = result;
+    innoHelper.setAppSettings(settings, function (err, res) {
+        if (typeof callback === 'function') {
+            callback(err, res);
+        }
+    });
+};
 
 // Starting server
 var server = app.listen(port, function () {
