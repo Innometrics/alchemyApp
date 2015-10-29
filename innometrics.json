@@ -6,7 +6,22 @@
         "type": "bundled",
         "content": "frontend/settings.html"
     }],
-    "permissions": ["stream", "profile.update", "profile.read", "app.read.own"],
+    "widgets": {
+        "interests": {
+            "title": "interests overview",
+            "settings": {
+                "type": "bundled",
+                "content": "settings/settings.html",
+                "defaultSettings": {
+                    "chartType": "bar"
+                },
+                "size": {
+                    "height": 560
+                }
+            }           
+        }
+    },
+    "permissions": ["stream", "profile.update", "profile.read", "app.read.own", "app.update.own"],
     "runtime": {
         "language": "node",
         "version": "0.10"
