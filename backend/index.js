@@ -116,7 +116,10 @@ app.post('/', function (req, res) {
                         if (item.relevance >= settings.minRelevance) {
 
                             var id = getAttributeId(item.text);
-                            var attribute = fullProfile.getAttribute(id, innoHelper.getCollectApp(), settings.section);
+                            var attribute;
+                            try {
+                                attribute = fullProfile.getAttribute(id, innoHelper.getCollectApp(), settings.section);
+                            } catch (e) {}
                             var count = parseInt(item.count, 10);
 
                             if (!attribute) {
@@ -155,7 +158,7 @@ app.post('/', function (req, res) {
  * @return {String}      [description]
  */
 var getAttributeId = function (name) {
-    return name.toLowerCase().replace(new RegExp(' +', 'g'), '-').replace(new RegExp('[^-a-z0-9]', 'g'), '');
+    return name.toLowerCase().replace(new RegExp('[^-\\u00BF-\\u1FFF\\u2C00-\\uD7FF\\w\\d\\s]', 'g'), '').trim().replace(new RegExp('\\s+', 'g'), '-');
 };
 
 /**
