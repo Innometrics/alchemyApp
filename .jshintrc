@@ -3,7 +3,8 @@
         "$": false,
         "JSONEditor": false,
         "IframeHelper": false,
-        "Loader": false
+        "Loader": false,
+        "JSON": false
     },
     "multistr": false,
     "maxerr": 50,

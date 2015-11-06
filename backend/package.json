@@ -8,10 +8,10 @@
     "start": "node index.js"
   },
   "dependencies": {
-    "body-parser": "^1.9.3",
-    "express": "^4.0.0",
-    "request": "^2.45.0",
-    "innometrics-helper": "0.0.7"
+    "body-parser": "^1.14.1",
+    "express": "^4.13.3",
+    "request": "^2.65.0",
+    "innometrics-helper": "0.0.10"
   },
   "engines": {
     "node": "0.10.x"
