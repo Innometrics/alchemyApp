@@ -1,9 +1,10 @@
-/* global IframeHelper $*/
+/* global IframeHelper, $*/
 $(function () {
     var $ = window.$;
     var inno = new IframeHelper();
-    Loader.show();
     var $chart = $('#chart');
+
+    Loader.show();
 
     // related to "frontend/widgets/interests/settings/settings.schema.json"
     var defaultInterestToShow = [

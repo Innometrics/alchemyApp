@@ -1,3 +1,5 @@
+/* global Loader, IframeHelper, JSONEditor */
+
 function makeSettingsEditor(handlers, options, callbacks) {
     var $ = window.$;
 
@@ -34,7 +36,6 @@ function makeSettingsEditor(handlers, options, callbacks) {
             required_by_default: true,
             theme: 'bootstrap3'
         });
-
 
         // Init IframeHelper
         var inno = new IframeHelper();

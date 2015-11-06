@@ -1,9 +1,6 @@
-/* global makeSettingsEditor */
+/* global makeSettingsEditor, $ */
 
 (function () {
-
-    Loader.show();
-
     makeSettingsEditor({
         form: $('#form-setting')[0],
         submit: $('#submit-setting')
@@ -22,7 +19,6 @@
             });
         },
         callbackSetSettings: function (helper, form) {
-
             Loader.show();
             helper.setWidgetSettings(form.getValue(), function (status) {
                 Loader.hide();

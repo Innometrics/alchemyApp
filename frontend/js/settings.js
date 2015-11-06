@@ -1,9 +1,6 @@
-/* global makeSettingsEditor */
+/* global makeSettingsEditor, Loader */
 
 (function () {
-
-    Loader.show();
-
     makeSettingsEditor({
         form: $('#form-setting')[0],
         submit: $('#submit-setting')
@@ -22,12 +19,12 @@
             });
         },
         callbackSetSettings: function (helper, form) {
-            Loader.show();
+            Loader.show('Saving...');
             helper.setProperties(form.getValue(), function (status) {
-                Loader.hide();
                 if (status) {
                     console.log('Settings were saved.');
                 }
+                Loader.hide();
             });
         }
     });
