@@ -1,4 +1,4 @@
-/* global Loader, IframeHelper, JSONEditor */
+/* jshint unused:false */
 
 function makeSettingsEditor(handlers, options, callbacks) {
     var $ = window.$;

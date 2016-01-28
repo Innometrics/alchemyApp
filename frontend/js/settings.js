@@ -1,4 +1,4 @@
-/* global makeSettingsEditor, Loader */
+/* global makeSettingsEditor */
 
 (function () {
     makeSettingsEditor({
