@@ -1,6 +1,6 @@
 /* jshint unused:false */
 
-function makeSettingsEditor(handlers, options, callbacks) {
+function makeSettingsEditor (handlers, options, callbacks) {
     var $ = window.$;
 
     // Step 1. Define default path to file with schema
