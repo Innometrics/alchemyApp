@@ -6,7 +6,7 @@
         submit: $('#submit-setting')
     }, {
         schemaPath: 'js/settings.schema.json',
-        title: ''
+        title: ' '
     }, {
         callbackGetSettings: function (helper, form) {
             helper.getProperties(function (status, data) {
