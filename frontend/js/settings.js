@@ -5,8 +5,7 @@
         form: $('#form-setting')[0],
         submit: $('#submit-setting')
     }, {
-        schemaPath: 'js/settings.schema.json',
-        title: 'App settings stored in Innometrics Cloud'
+        schemaPath: 'js/settings.schema.json'
     }, {
         callbackGetSettings: function (helper, form) {
             helper.getProperties(function (status, data) {
