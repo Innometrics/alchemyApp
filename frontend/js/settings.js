@@ -7,22 +7,24 @@
         title: ' '
     }, {
         callbackGetSettings: function (helper, form) {
-            helper.getProperties(function (status, data) {
-                if (status) {
-                    form.setValue(data);
+            helper.getProperties(function (error, data) {
+                if (error) {
+                    console.error('Error: unable to get Settings from Profile Cloud', error);
                 } else {
-                    console.info('Error: unable to get Settings from Profile Cloud');
+                    form.setValue(data);
                 }
-                Loader.hide();
+                helper.hideLoader();
             });
         },
         callbackSetSettings: function (helper, form) {
-            Loader.show('Saving...');
-            helper.setProperties(form.getValue(), function (status) {
-                if (status) {
+            helper.showLoader();
+            helper.setProperties(form.getValue(), function (error) {
+                if (error) {
+                    console.error(error);
+                } else {
                     console.info('Settings were saved.');
                 }
-                Loader.hide();
+                helper.hideLoader();
             });
         }
     });

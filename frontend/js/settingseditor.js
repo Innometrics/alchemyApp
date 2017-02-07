@@ -39,10 +39,10 @@ function makeSettingsEditor (handlers, options, callbacks) {
             theme: 'bootstrap3'
         });
 
-        // Init IframeHelper
-        var inno = new IframeHelper();
+        // Init InnoHelper
+        var inno = new InnoHelper();
 
-        Loader.show();
+        inno.showLoader();
         inno.onReady(function () {
             callbacks.callbackGetSettings(inno, editor);
         });

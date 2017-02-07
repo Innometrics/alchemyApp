@@ -1,10 +1,9 @@
-/* global IframeHelper, $*/
 $(function () {
     var $ = window.$;
-    var inno = new IframeHelper();
+    var inno = new InnoHelper();
     var $chart = $('#chart');
 
-    Loader.show();
+    inno.showLoader();
 
     // related to "frontend/widgets/interests/settings/settings.schema.json"
     var defaultInterestToShow = [
@@ -29,7 +28,7 @@ $(function () {
      */
     inno.onReady(function () {
         updateChart(function () {
-            Loader.hide();
+            inno.hideLoader();
         });
     });
 
@@ -37,9 +36,9 @@ $(function () {
      * Refresh button click listener
      */
     $('#refresh').click(function () {
-        Loader.show();
+        inno.showLoader();
         updateChart(function () {
-            Loader.hide();
+            inno.hideLoader();
         });
     });
 
