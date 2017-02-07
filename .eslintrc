@@ -20,8 +20,8 @@
         "runs": true,
         "async": true,
         "JSONEditor": true,
-        "IframeHelper": true,
-        "Loader": true,
+        "InnoHelper": true,
+        "Utils": true,
         "$": true,
         "makeSettingsEditor": true
     },

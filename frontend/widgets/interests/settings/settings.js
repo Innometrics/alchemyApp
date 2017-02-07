@@ -7,23 +7,25 @@
         title: 'Widget settings'
     }, {
         callbackGetSettings: function (helper, form) {
-            helper.getWidgetSettings(function (status, data) {
-                if (status) {
-                    form.setValue(data);
+            helper.getWidgetSettings(function (error, data) {
+                if (error) {
+                    console.error('Error: unable to get Widget Settings from Profile Cloud', error);
                 } else {
-                    console.info('Error: unable to get Widget Settings from Profile Cloud');
+                    form.setValue(data);
                 }
-                Loader.hide();
+                helper.hideLoader();
             });
         },
         callbackSetSettings: function (helper, form) {
-            Loader.show();
-            helper.setWidgetSettings(form.getValue(), function (status) {
-                Loader.hide();
-                helper.sendIsReady();
-                if (status) {
+            helper.showLoader();
+            helper.setWidgetSettings(form.getValue(), function (error) {
+                if (error) {
+                    console.error(error);
+                } else {
                     console.info('Widget Settings were saved.');
                 }
+                helper.hideLoader();
+                helper.sendIsReady();
             });
         }
     });
