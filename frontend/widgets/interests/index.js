@@ -16,7 +16,12 @@ $(function () {
     ];
 
     $.jqplot.preInitHooks.push(function (/*target, data, options*/) {
-        this._defaultGridPadding = {top:5, right:0, bottom:5, left:0};
+        this._defaultGridPadding = {
+            top: 5,
+            right: 0,
+            bottom: 5,
+            left: 0
+        };
     });
 
     /**
@@ -52,7 +57,7 @@ $(function () {
             if (!status) {
                 error = new Error('Can not get settings');
             }
-            callback(error,  data);
+            callback(error, data);
         });
     }
 
@@ -103,7 +108,8 @@ $(function () {
             },
             config = $.extend(
                 defaultConfig,
-                getJQPlotConfigByType(settings.chartType, Object.keys(data).length) // (pie or bar)
+                // (pie or bar)
+                getJQPlotConfigByType(settings.chartType, Object.keys(data).length)
             );
 
         $.jqplot(
@@ -142,7 +148,6 @@ $(function () {
                     callback(error);
                 });
             }
-
         });
     }
 
@@ -182,18 +187,16 @@ $(function () {
                         }
                     },
                     legend: {
-                        show:true,
+                        show: true,
                         location: 'e',
                         escapeHtml: true,
-                        rendererOptions: {
-                            numberColumns: dataSize ? Math.ceil(dataSize / 7) : 1
-                        }
+                        rendererOptions: {numberColumns: dataSize ? Math.ceil(dataSize / 7) : 1}
                     },
                     highlighter: {
                         show: true,
-                        formatString:'%s',
-                        tooltipLocation:'n',
-                        useAxesFormatters:false
+                        formatString: '%s',
+                        tooltipLocation: 'n',
+                        useAxesFormatters: false
                     }
                 };
                 break;
@@ -207,16 +210,10 @@ $(function () {
                             fontSize: '10pt'
                         }
                     },
-                    axes: {
-                        xaxis: {
-                            renderer: $.jqplot.CategoryAxisRenderer
-                        }
-                    },
+                    axes: {xaxis: {renderer: $.jqplot.CategoryAxisRenderer}},
                     series: [{
                         renderer: $.jqplot.BarRenderer,
-                        rendererOptions: {
-                            shadowOffset: 0
-                        }
+                        rendererOptions: {shadowOffset: 0}
                     }],
                     highlighter: {
                         show: true,
@@ -232,7 +229,4 @@ $(function () {
 
         return config;
     }
-
-
-
 });

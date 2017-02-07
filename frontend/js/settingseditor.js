@@ -1,14 +1,16 @@
-/* jshint unused:false */
-
+/* eslint-disable no-unused-vars */
 function makeSettingsEditor (handlers, options, callbacks) {
+/* eslint-enable no-unused-vars */
     var $ = window.$;
 
     // Step 1. Define default path to file with schema
-    var settingsSchemaSrc = options.schemaPath; // default path to json schema of sesstings' fields
+    // default path to json schema of sesstings' fields
+    var settingsSchemaSrc = options.schemaPath;
 
     // Step 2. If custom path was defined - is it
     if (settingsSchemaSrc in window) {
-        settingsSchemaSrc = window.settingsSchemaSrc;    // use custom path if exists
+        // use custom path if exists
+        settingsSchemaSrc = window.settingsSchemaSrc;
     }
 
     // Step 3. Get data from json file. Call onPropertiesSchemaReady() when schema received
@@ -54,11 +56,10 @@ function makeSettingsEditor (handlers, options, callbacks) {
                         title = field.schema.title;
                     return title + ': ' + error.message;
                 });
-                console.log(errors.join('\n'));
+                console.info(errors.join('\n'));
             } else {
                 callbacks.callbackSetSettings(inno, editor);
             }
         });
     };
-
 }

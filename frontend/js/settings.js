@@ -1,5 +1,3 @@
-/* global makeSettingsEditor */
-
 (function () {
     makeSettingsEditor({
         form: $('#form-setting')[0],
@@ -13,7 +11,7 @@
                 if (status) {
                     form.setValue(data);
                 } else {
-                    console.log('Error: unable to get Settings from Profile Cloud');
+                    console.info('Error: unable to get Settings from Profile Cloud');
                 }
                 Loader.hide();
             });
@@ -22,11 +20,10 @@
             Loader.show('Saving...');
             helper.setProperties(form.getValue(), function (status) {
                 if (status) {
-                    console.log('Settings were saved.');
+                    console.info('Settings were saved.');
                 }
                 Loader.hide();
             });
         }
     });
-
-})();
+}());
