@@ -1,5 +1,3 @@
-/* global makeSettingsEditor, $ */
-
 (function () {
     makeSettingsEditor({
         form: $('#form-setting')[0],
@@ -13,7 +11,7 @@
                 if (status) {
                     form.setValue(data);
                 } else {
-                    console.log('Error: unable to get Widget Settings from Profile Cloud');
+                    console.info('Error: unable to get Widget Settings from Profile Cloud');
                 }
                 Loader.hide();
             });
@@ -24,10 +22,9 @@
                 Loader.hide();
                 helper.sendIsReady();
                 if (status) {
-                    console.log('Widget Settings were saved.');
+                    console.info('Widget Settings were saved.');
                 }
             });
         }
     });
-
-})();
+}());

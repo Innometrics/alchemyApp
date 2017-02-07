@@ -1,10 +1,15 @@
-var express = require('express'),          // Using Express library for simple web server functionality
-    bodyParser = require('body-parser'),
-    inno = require('innometrics-helper'),  // Innometrics helper to work with profile cloud
-    request = require('request');
+var express = require('express');
+var request = require('request');
+// Using Express library for simple web server functionality
+var bodyParser = require('body-parser');
+// Innometrics helper to work with profile cloud
+var inno = require('innometrics-helper');
 
-var app = express(),
-    port = parseInt(process.env.PORT, 10);
+/* eslint-disable no-process-env */
+var env = process.env;
+/* eslint-enable no-process-env */
+var app = express();
+var port = parseInt(env.PORT, 10);
 
 // Parse application/json request
 app.use(bodyParser.json());
@@ -25,11 +30,11 @@ app.use(function (req, res, next) {
  * If you use manual install of backend part to your own servers, you will need to setup these manually.
  */
 var vars = {
-    bucketName: process.env.INNO_BUCKET_ID,
-    appKey: process.env.INNO_APP_KEY,
-    apiUrl: process.env.INNO_API_HOST,
-    appName: process.env.INNO_APP_ID,
-    groupId: process.env.INNO_COMPANY_ID
+    bucketName: env.INNO_BUCKET_ID,
+    appKey: env.INNO_APP_KEY,
+    apiUrl: env.INNO_API_HOST,
+    appName: env.INNO_APP_ID,
+    groupId: env.INNO_COMPANY_ID
 };
 
 /**
@@ -44,7 +49,7 @@ var sendResponse = function (res, error, message) {
     if (error) {
         console.error(error);
     } else {
-        console.log(message);
+        console.info(message);
     }
     return res.json({
         error: error && error.message || error,
@@ -56,13 +61,14 @@ var innoHelper = new inno.InnoHelper(vars);
 
 // POST request to "/" is always expected to recieve stream with events
 app.post('/', function (req, res) {
-
+    var url;
+    var profile;
     try {
-        var profile = innoHelper.getProfileFromRequest(req.body);
+        profile = innoHelper.getProfileFromRequest(req.body);
         var session = profile.getLastSession();
-        var events  = session.getEvents();
-        var event   = events[0];
-        var url     = event.getDataValue('page-url');
+        var events = session.getEvents();
+        var event = events[0];
+        url = event.getDataValue('page-url');
         if (!url) {
             throw Error('URL not found');
         }
@@ -114,12 +120,13 @@ app.post('/', function (req, res) {
                 try {
                     interests.forEach(function (item) {
                         if (item.relevance >= settings.minRelevance) {
-
                             var id = getAttributeId(item.text);
                             var attribute;
                             try {
                                 attribute = fullProfile.getAttribute(id, innoHelper.getCollectApp(), settings.section);
-                            } catch (e) {}
+                            } catch (e) {
+                                console.error(e);
+                            }
                             var count = parseInt(item.count, 10);
 
                             if (!attribute) {
@@ -136,8 +143,8 @@ app.post('/', function (req, res) {
                             }
                         }
                     });
-                } catch (err) {
-                    return sendResponse(res, err);
+                } catch (e) {
+                    return sendResponse(res, e);
                 }
 
                 // Save profile to Data Handler
@@ -169,18 +176,17 @@ var getAttributeId = function (name) {
  */
 var getInterests = function (entities, settings) {
     return entities.filter(function (item) {
-        return (settings.entityType.indexOf(item.type) > -1) && (parseFloat(item.relevance) >= settings.minRelevance);
+        return settings.entityType.indexOf(item.type) > -1 && parseFloat(item.relevance) >= settings.minRelevance;
     }).splice(0, settings.amount);
 };
 
 var collectCommonData = function (entities, settings, callback) {
-
     var types = settings.entityType,
         result = settings.commonData || {};
 
     entities.forEach(function (entity) {
         var count = parseInt(entity.count, 10);
-        var type  = entity.type;
+        var type = entity.type;
         if (types.indexOf(type) > -1) {
             result[type] = result.hasOwnProperty(type) ? result[type] + count : count;
         }
@@ -189,12 +195,12 @@ var collectCommonData = function (entities, settings, callback) {
     settings.commonData = result;
     innoHelper.setAppSettings(settings, function (err, res) {
         if (typeof callback === 'function') {
-            callback(err, res);
+            return callback(err, res);
         }
     });
 };
 
 // Starting server
 var server = app.listen(port, function () {
-    console.log('Listening on port %d', server.address().port);
+    console.info('Listening on port %d', server.address().port);
 });
