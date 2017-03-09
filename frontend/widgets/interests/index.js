@@ -1,3 +1,6 @@
+/* globals InnoHelper */
+
+var $ = window.$;
 $(function () {
     var $ = window.$;
     var inno = new InnoHelper();
@@ -7,11 +10,11 @@ $(function () {
 
     // related to "frontend/widgets/interests/settings/settings.schema.json"
     var defaultInterestToShow = [
-        "Country",
-        "City",
-        "Person",
-        "Company",
-        "Technology"
+        'Country',
+        'City',
+        'Person',
+        'Company',
+        'Technology'
     ];
 
     $.jqplot.preInitHooks.push(function (/*target, data, options*/) {

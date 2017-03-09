@@ -1,3 +1,7 @@
+/* globals makeSettingsEditor */
+
+var $ = window.$;
+
 (function () {
     makeSettingsEditor({
         form: $('#form-setting')[0],
