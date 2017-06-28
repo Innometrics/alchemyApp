@@ -1,3 +1,4 @@
+/* globals JSONEditor, InnoHelper */
 /* eslint-disable no-unused-vars */
 function makeSettingsEditor (handlers, options, callbacks) {
 /* eslint-enable no-unused-vars */

@@ -1,4 +1,7 @@
+/* global makeSettingsEditor */
 (function () {
+    var $ = window.$;
+
     makeSettingsEditor({
         form: $('#form-setting')[0],
         submit: $('#submit-setting')

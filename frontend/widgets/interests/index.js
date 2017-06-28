@@ -1,3 +1,6 @@
+/* globals InnoHelper */
+
+var $ = window.$;
 $(function () {
     var $ = window.$;
     var inno = new InnoHelper();
@@ -7,11 +10,11 @@ $(function () {
 
     // related to "frontend/widgets/interests/settings/settings.schema.json"
     var defaultInterestToShow = [
-        "Country",
-        "City",
-        "Person",
-        "Company",
-        "Technology"
+        'Country',
+        'City',
+        'Person',
+        'Company',
+        'Technology'
     ];
 
     $.jqplot.preInitHooks.push(function (/*target, data, options*/) {
@@ -51,13 +54,7 @@ $(function () {
      * @param callback
      */
     function getWidgetSettings (callback) {
-        inno.getWidgetSettings(function (status, data) {
-            var error = null;
-            if (!status) {
-                error = new Error('Can not get settings');
-            }
-            callback(error, data);
-        });
+        inno.getWidgetSettings(callback);
     }
 
     /**
@@ -65,12 +62,9 @@ $(function () {
      * @param callback
      */
     function getInterestsData (callback) {
-        inno.getProperties(function (status, data) {
-            var error = null,
-                interests = null;
-            if (!status) {
-                error = new Error('Can not get interests data');
-            } else {
+        inno.getProperties(function (error, data) {
+            var interests = null;
+            if (!error) {
                 data = data || {};
                 interests = data.commonData || {};
             }
