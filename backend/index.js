@@ -1,9 +1,10 @@
 var express = require('express');
-var request = require('request');
 // Using Express library for simple web server functionality
 var bodyParser = require('body-parser');
 // Innometrics helper to work with profile cloud
 var inno = require('innometrics-helper');
+// Watson Developer Cloud SDK | Alchemy Language
+var AlchemyLanguageV1 = require('watson-developer-cloud/alchemy-language/v1');
 
 /* eslint-disable no-process-env */
 var env = process.env;
@@ -42,7 +43,7 @@ var vars = {
  * Format successfull or failed response object
  * @param  {Object}         res     Express response object
  * @param  {Error|String}   error   Error text or Object
- * @param  {String}         message
+ * @param  {String}         [message]
  * @return {Object}
  */
 var sendResponse = function (res, error, message) {
@@ -79,23 +80,26 @@ app.post('/', function (req, res) {
     // Get application settings
     innoHelper.getAppSettings(function (err, settings) {
         if (err) {
-            throw err;
+            return sendResponse(res, err);
         }
 
-        var alchemyUrl = 'http://access.alchemyapi.com/calls/url/URLGetRankedNamedEntities?' +
-            'apikey=' + settings.api_key +
-            '&url=' + url +
-            '&outputMode=json';
+        if (!settings.api_key) {
+            return sendResponse(res, new Error('Alchemy API key required. Please fill out this in settings'));
+        }
+
+        // https://www.npmjs.com/package/watson-developer-cloud#alchemylanguage
+        var alchemyLanguage = new AlchemyLanguageV1({
+            api_key: settings.api_key
+        });
+
+        var params = {
+            url: url
+        };
 
         // Get Alchemy analyze of the page
-        request.get(alchemyUrl, function (err, response) {
-            if (err) {
-                throw err;
-            }
-
-            var result = JSON.parse(response.body);
-            if (result && result.status === 'ERROR') {
-                return sendResponse(res, result.statusInfo);
+        alchemyLanguage.entities(params, function (error, result) {
+            if (error) {
+                return sendResponse(res, error);
             }
 
             var interests = getInterests(result.entities, settings);
@@ -150,7 +154,7 @@ app.post('/', function (req, res) {
                 // Save profile to Data Handler
                 innoHelper.saveProfile(fullProfile, function (err) {
                     if (err) {
-                        throw err;
+                        return sendResponse(res, err);
                     }
                     return sendResponse(res, err, 'Profile was successfully updated');
                 });

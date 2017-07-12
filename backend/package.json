@@ -10,8 +10,8 @@
   "dependencies": {
     "body-parser": "^1.14.1",
     "express": "^4.13.3",
-    "request": "^2.65.0",
-    "innometrics-helper": "0.0.14"
+    "innometrics-helper": "0.0.17",
+    "watson-developer-cloud": "^2.34.0"
   },
   "engines": {
     "node": "0.10.x"
