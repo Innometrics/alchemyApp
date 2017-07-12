@@ -3,8 +3,8 @@ var express = require('express');
 var bodyParser = require('body-parser');
 // Innometrics helper to work with profile cloud
 var inno = require('innometrics-helper');
-// Watson Developer Cloud SDK | Alchemy Language
-var AlchemyLanguageV1 = require('watson-developer-cloud/alchemy-language/v1');
+// Watson Developer Cloud SDK
+var NaturalLanguageUnderstandingV1 = require('watson-developer-cloud/natural-language-understanding/v1.js');
 
 /* eslint-disable no-process-env */
 var env = process.env;
@@ -83,21 +83,29 @@ app.post('/', function (req, res) {
             return sendResponse(res, err);
         }
 
-        if (!settings.api_key) {
-            return sendResponse(res, new Error('Alchemy API key required. Please fill out this in settings'));
+        if (!settings.username) {
+            return sendResponse(res, new Error('Natural Language Understanding username required. Please fill out this in settings'));
         }
 
-        // https://www.npmjs.com/package/watson-developer-cloud#alchemylanguage
-        var alchemyLanguage = new AlchemyLanguageV1({
-            api_key: settings.api_key
+        if (!settings.password) {
+            return sendResponse(res, new Error('Natural Language Understanding password required. Please fill out this in settings'));
+        }
+
+        // https://www.ibm.com/watson/developercloud/natural-language-understanding/api/v1/?node#entities
+        var naturalLanguageUnderstanding = new NaturalLanguageUnderstandingV1({
+            username: settings.username,
+            password: settings.password,
+            version_date: '2017-02-27'
         });
 
-        var params = {
-            url: url
+        var parameters = {
+            url: url,
+            features: {
+                entities: {}
+            }
         };
 
-        // Get Alchemy analyze of the page
-        alchemyLanguage.entities(params, function (error, result) {
+        naturalLanguageUnderstanding.analyze(parameters, function(error, result) {
             if (error) {
                 return sendResponse(res, error);
             }

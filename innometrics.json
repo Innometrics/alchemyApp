@@ -24,6 +24,6 @@
     "permissions": ["stream", "profile.update", "profile.read", "app.read.own", "app.update.own"],
     "runtime": {
         "language": "node",
-        "version": "0.10"
+        "version": "4"
     }
 }
