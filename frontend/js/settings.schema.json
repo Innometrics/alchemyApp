@@ -1,6 +1,10 @@
 {
-  "api_key": {
-    "title": "Alchemy API key",
+  "username": {
+    "title": "Natural Language Understanding service username",
+    "type": "string"
+  },
+  "password": {
+    "title": "Natural Language Understanding service password",
     "type": "string"
   },
   "section": {
